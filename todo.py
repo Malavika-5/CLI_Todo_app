@@ -3,7 +3,7 @@ try:
     with open("tasks.txt","r") as f:
         for t in f:
             task,completed=t.strip().split("-")
-            tasks.append({"task":task,"completed":completed==True})
+            tasks.append({"task":task,"completed":completed=="True"})
 except FileNotFoundError:
     tasks=[]
 while (True):
@@ -31,6 +31,9 @@ while (True):
                 f.write(f"{t['task']}-{t['completed']}\n")
 
     elif ch==2:
+        if len(tasks)==0:
+            print("No more Tasks to delete")
+            continue
         for i,t in enumerate(tasks):
             print(f"{i+1}.{t['task']}")
 
@@ -44,6 +47,9 @@ while (True):
     
 
     elif ch==3:
+        if len(tasks)==0:
+            print("No more Tasks to update")
+            continue
         for i,t in enumerate(tasks):
             print(f"{i+1}.{t['task']}")
         upd=int(input("Enter task id to marked as completed: "))
@@ -51,13 +57,19 @@ while (True):
         for i,t in enumerate(tasks):
             if i==(upd-1):
                 t["completed"]=True
-            print("\nTask marked as completed")
+        print("\nTask marked as completed")
+        with open("tasks.txt","w") as f:
+            for t in tasks:
+                f.write(f"{t['task']}-{t['completed']}\n")
 
 
 
     elif ch==4:
-            for t in tasks:
-                if t["completed"]:
-                    print(f"[X] {t['task']}")
-                else:
-                    print(f"[ ] {t['task']}")
+        if len(tasks)==0:
+            print("\nNo Tasks in the list")
+            continue
+        for t in tasks:
+            if t["completed"]:
+                print(f"[X] {t['task']}")
+            else:
+                print(f"[ ] {t['task']}")
