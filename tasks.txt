@@ -1,0 +1,3 @@
+cooking-False
+cleaning-True
+workout-False
